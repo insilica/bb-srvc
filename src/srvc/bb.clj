@@ -1,4 +1,4 @@
-(ns srvc.bb.hash
+(ns srvc.bb
   (:refer-clojure :exclude [hash])
   (:require [insilica.canonical-json :as json]
             [multihash.core :as multihash]
