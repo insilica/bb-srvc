@@ -1,0 +1,53 @@
+name: Test & Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  test-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Clojure dependencies
+        uses: actions/cache@v3
+        with:
+          key: clj-bb-srvc-${{ hashFiles('**/deps.edn') }}
+          restore-keys: clj-bb-srvc-
+          path: |
+            ~/.gitlibs
+            ~/.m2/repository
+      - name: Install Nix
+        uses: cachix/install-nix-action@v17
+
+      - name: Cache Nix store
+        id: nix-cache
+        uses: john-shaffer/cache@sudo-tar
+        with:
+          key: nix-bb-srvc-${{ hashFiles('**.nix') }}
+          restore-keys: |
+            nix-bb-srvc-
+          path: |
+            ~/nix-db-dump
+            /nix/store
+            /nix/var/nix/profiles
+      - run: sudo `command -v nix-store` --load-db < ~/nix-db-dump
+        if: steps.nix-cache.outputs.cache-hit == 'true'
+
+      - run: nix-build default.nix -A inputDerivation -o gcroots
+
+      - name: Run tests and build jar
+        run: nix-shell --run "clojure -T:build ci :snapshot false"
+        
+      - name: Deploy release jar
+        run: nix-shell --run "clojure -T:build deploy :snapshot false"
+        env:
+          CLOJARS_PASSWORD: ${{secrets.CLOJARS_PASSWORD}}
+          CLOJARS_USERNAME: ${{secrets.CLOJARS_USERNAME}}
+
+      - run: |
+          sudo `command -v nix-collect-garbage` -d
+          nix-store --dump-db > ~/nix-db-dump
+        if: steps.nix-cache.outputs.cache-hit != 'true'
