@@ -4,6 +4,9 @@
             [multihash.core :as multihash]
             [multihash.digest :as digest]))
 
+(defn unix-time []
+  (quot (System/currentTimeMillis) 1000))
+
 (defn json-hash [m]
   (-> (dissoc m :hash :meta) json/write-str digest/sha2-256 multihash/base58))
 
