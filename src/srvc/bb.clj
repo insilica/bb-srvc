@@ -8,8 +8,14 @@
 (defn unix-time []
   (quot (System/currentTimeMillis) 1000))
 
+(def unhashed-keys
+  [(keyword "@context") (keyword "@id") ;; json-ld keys
+   (keyword "$id") (keyword "$schema") ;; json-schema keys
+   :hash :meta])
+
 (defn json-hash [m]
-  (-> (dissoc m :hash :meta) json/write-str digest/sha2-256 multihash/base58))
+  (-> (apply dissoc m unhashed-keys)
+      json/write-str digest/sha2-256 multihash/base58))
 
 (defn add-hash [m]
   (assoc m :hash (json-hash m)))

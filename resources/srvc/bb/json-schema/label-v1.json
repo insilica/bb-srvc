@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://insilica.github.io/bb-srvc/json-schema/label-v1.json",
+    "type": "object",
+    "properties": {
+        "data": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "inclusion_values": {
+                    "type": "array"
+                },
+                "question": {
+                    "type": "string"
+                },
+                "required": {
+                    "type": "boolean"
+                },
+                "type": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "question",
+                "required",
+                "type"
+            ]
+        },
+        "hash": {
+            "type": "string"
+        },
+        "type": {
+            "const": "label"
+        }
+    },
+    "required": [
+        "data",
+        "hash",
+        "type"
+    ]
+}

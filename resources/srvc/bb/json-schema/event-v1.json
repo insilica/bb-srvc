@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://insilica.github.io/bb-srvc/json-schema/event-v1.json",
+    "oneOf": [
+        {
+            "$ref": "https://insilica.github.io/bb-srvc/json-schema/document-v1.json"
+        },
+        {
+            "$ref": "https://insilica.github.io/bb-srvc/json-schema/label-answer-v1.json"
+        },
+        {
+            "$ref": "https://insilica.github.io/bb-srvc/json-schema/label-v1.json"
+        }
+    ]
+}

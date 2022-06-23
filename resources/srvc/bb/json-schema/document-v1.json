@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://insilica.github.io/bb-srvc/json-schema/document-v1.json",
+    "type": "object",
+    "properties": {
+        "data": {
+            "type": "object"
+        },
+        "hash": {
+            "type": "string"
+        },
+        "type": {
+            "const": "document"
+        },
+        "uri": {
+            "type": "string",
+            "format": "uri"
+        }
+    },
+    "required": [
+        "hash",
+        "type"
+    ]
+}

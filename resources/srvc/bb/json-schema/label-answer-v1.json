@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://insilica.github.io/bb-srvc/json-schema/label-answer-v1.json",
+    "type": "object",
+    "properties": {
+        "data": {
+            "type": "object",
+            "properties": {
+                "answer": {},
+                "document": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "reviewer": {
+                    "type": "string",
+                    "format": "uri"
+                },
+                "timestamp": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "answer",
+                "document",
+                "label",
+                "reviewer",
+                "timestamp"
+            ]
+        },
+        "hash": {
+            "type": "string"
+        },
+        "type": {
+            "const": "label-answer"
+        }
+    },
+    "required": [
+        "data",
+        "hash",
+        "type"
+    ]
+}

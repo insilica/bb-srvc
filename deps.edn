@@ -1,7 +1,8 @@
-{:paths ["src"]
+{:paths ["resources" "src"]
  :deps {org.clojure/clojure {:mvn/version "1.11.1"}
         co.insilica/canonical-json {:mvn/version "3.1.0"}
-        co.insilica/clj-multihash {:mvn/version "3.0.0"}}
+        co.insilica/clj-multihash {:mvn/version "3.0.0"}
+        co.insilica/jinx {:mvn/version "0.2.0"}}
  :aliases
  {:build {:deps {io.github.seancorfield/build-clj
                  {:git/tag "v0.8.0" :git/sha "9bd8b8a"}}
