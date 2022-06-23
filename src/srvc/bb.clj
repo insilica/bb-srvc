@@ -3,7 +3,8 @@
   (:require [clojure.java.io :as io]
             [insilica.canonical-json :as json]
             [multihash.core :as multihash]
-            [multihash.digest :as digest]))
+            [multihash.digest :as digest]
+            [srvc.bb.json-schema :as bjs]))
 
 (defn unix-time []
   (quot (System/currentTimeMillis) 1000))
@@ -29,11 +30,17 @@
   (some-> file io/reader
           (json/read :key-fn keyword)))
 
-(defn generate [documents]
+(defn generate [events]
   (let [[_ out-file] *command-line-args*]
     (with-open [writer (io/writer out-file)]
-      (doseq [doc documents]
-        (write-event writer doc)))))
+      (doseq [event events]
+        (let [{:keys [errors valid?]} (-> (assoc event :hash "")
+                                          json/write-str json/read-str
+                                          bjs/validate)]
+          (if valid?
+            (write-event writer event)
+            (throw (ex-info "Event failed validation"
+                            {:errors errors :event event}))))))))
 
 (defn map [f]
   (let [[config-file out-file in-file] *command-line-args*
@@ -48,4 +55,10 @@
               (.write writer line)
               (.write writer "\n")
               (.flush writer))
-            (write-event writer f-event)))))))
+            (let [{:keys [errors valid?]} (-> (assoc f-event :hash "")
+                                              json/write-str json/read-str
+                                              bjs/validate)]
+              (if valid?
+                (write-event writer f-event)
+                (throw (ex-info "Event failed validation"
+                                {:errors errors :event f-event}))))))))))
