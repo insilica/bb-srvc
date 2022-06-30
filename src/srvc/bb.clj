@@ -43,7 +43,7 @@
                             {:errors errors :event event}))))))))
 
 (defn map [f]
-  (let [[config-file out-file in-file] *command-line-args*
+  (let [[config-file in-file out-file] *command-line-args*
         config (get-config config-file)]
     (with-open [writer (io/writer out-file)]
       (doseq [line (-> in-file io/reader line-seq)
