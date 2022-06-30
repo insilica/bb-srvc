@@ -31,7 +31,7 @@
           (json/read :key-fn keyword)))
 
 (defn generate [events]
-  (let [[_ out-file] *command-line-args*]
+  (let [out-file (System/getenv "SR_OUTPUT")]
     (with-open [writer (io/writer out-file)]
       (doseq [event events]
         (let [{:keys [errors valid?]} (-> (assoc event :hash "")
@@ -43,7 +43,9 @@
                             {:errors errors :event event}))))))))
 
 (defn map [f]
-  (let [[config-file in-file out-file] *command-line-args*
+  (let [config-file (System/getenv "SR_CONFIG")
+        in-file (System/getenv "SR_INPUT")
+        out-file (System/getenv "SR_OUTPUT")
         config (get-config config-file)]
     (with-open [writer (io/writer out-file)]
       (doseq [line (-> in-file io/reader line-seq)
