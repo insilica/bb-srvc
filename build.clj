@@ -8,7 +8,7 @@
   (str version (when (:snapshot opts) "-SNAPSHOT")))
 
 (defn test [opts]
-  #_(-> opts
+  (-> opts
       (assoc :main-args ["-m" "kaocha.runner"])
       (bb/run-task [:test]))
   opts)
