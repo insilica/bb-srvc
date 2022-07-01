@@ -1,5 +1,9 @@
 {:paths ["resources" "src"]
  :deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        babashka/babashka.curl {:mvn/version "0.1.2"}
+        babashka/fs {:mvn/version "0.1.6"}
+        babashka/process {:mvn/version "0.1.4"}
+        clj-commons/clj-yaml {:mvn/version "0.7.108"}
         co.insilica/canonical-json {:mvn/version "3.1.0"}
         co.insilica/clj-multihash {:mvn/version "3.0.0"}
         co.insilica/jinx {:mvn/version "0.2.0"}}
