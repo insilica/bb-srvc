@@ -22,9 +22,6 @@
   @(p/process ["mkfifo" (str path)])
   path)
 
-(defn usage []
-  (println "Usage: sr review flow-id"))
-
 (defn step-labels [{:keys [labels]} step]
   (->> step :labels
        (map #(sb/add-hash {:data (labels (keyword %)) :type "label"}))))
@@ -154,14 +151,3 @@
               (recur more add-hashes-out-file))
             @(step-process dir step {:config-json config-json
                                      :in-file in-file})))))))
-
-(defn run-command [command & args]
-  (let [command (some-> command str/lower-case)]
-    (case command
-      nil (usage)
-      "review" (apply review args)
-      "pull" (apply pull args)
-      "push" (apply push args)
-      "sync" (apply sync args)
-      (do (println "Unknown command" (pr-str command))
-          (System/exit 1)))))
