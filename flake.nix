@@ -31,6 +31,18 @@
             cljDrv = self.packages."${system}".clj;
           };
 
+          graalImage =
+            let
+              graalDrv = self.packages."${system}".graalBin;
+            in
+            pkgs.dockerTools.buildLayeredImage {
+              name = "srvc";
+              tag = "latest";
+              config = {
+                Cmd = "${graalDrv}/bin/${graalDrv.pname}";
+              };
+            };
+
         };
       });
 
