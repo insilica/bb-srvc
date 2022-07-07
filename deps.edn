@@ -4,12 +4,29 @@
         babashka/fs {:mvn/version "0.1.6"}
         babashka/process {:mvn/version "0.1.4"}
         clj-commons/clj-yaml {:mvn/version "0.7.108"}
-        co.insilica/canonical-json {:mvn/version "3.1.0"}
+        co.insilica/canonical-json {:mvn/version "3.2.0"}
         co.insilica/clj-multihash {:mvn/version "3.0.0"}
         co.insilica/jinx {:mvn/version "0.2.0"}}
  :aliases
  {:build {:deps {co.insilica/build-clj {:mvn/version "0.8.3"}}
           :ns-default build}
+  :native-image
+  {:main-opts
+   ["-m" "clj.native-image" "srvc.bb.cli"
+    "-H:EnableURLProtocols=http,https"
+    "-H:Name=target/sr"
+    "-H:+ReportExceptionStackTraces"
+    "-H:TraceClassInitialization=*"
+    "-H:IncludeResources=srvc/.*"
+    "--enable-all-security-services"
+    "--initialize-at-build-time"
+    "--no-fallback"
+    "--report-unsupported-elements-at-runtime"]
+   :jvm-opts ["-Dclojure.compiler.direct-linking=true"]
+   :extra-deps
+   {clj.native-image/clj.native-image
+    {:git/url "https://github.com/taylorwood/clj.native-image.git"
+     :git/sha "4604ae76855e09cdabc0a2ecc5a7de2cc5b775d6"}}}
   :test {:extra-paths ["test"]
          :extra-deps {lambdaisland/kaocha {:mvn/version "1.68.1059"}
                       lambdaisland/kaocha-cloverage {:mvn/version "1.0.75"}

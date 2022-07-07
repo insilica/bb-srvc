@@ -8,5 +8,6 @@
 .direnv/
 .lsp/
 .nrepl-port
+classes/
 result
 target/

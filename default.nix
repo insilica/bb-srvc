@@ -2,5 +2,11 @@
 let jdk = pkgs.openjdk17;
 in with pkgs;
 mkShell {
-  buildInputs = [ babashka (clojure.override { jdk = jdk; }) jdk rlwrap ];
+  buildInputs = [
+    babashka
+    (clojure.override { jdk = jdk; })
+    graalvm17-ce
+    jdk
+    rlwrap
+  ];
 }
