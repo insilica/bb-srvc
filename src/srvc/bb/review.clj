@@ -133,16 +133,16 @@
         (let [config-json (write-step-config config dir step)]
           (if more
             (let [out-file (-> (fs/path dir (str (random-uuid) ".fifo")) make-fifo str)
-                  add-hashes-step {:run (-> *file*
-                                            fs/real-path ; Resolve symlinks
-                                            fs/parent
-                                            (fs/path "map" "add-hashes.clj")
-                                            str)}
+                  add-hashes-file (str (fs/path dir "add-hashes.clj"))
+                  add-hashes-step {:run add-hashes-file}
                   add-hashes-config-json (write-step-config config dir add-hashes-step)
                   add-hashes-out-file (-> (fs/path dir (str (random-uuid) ".fifo")) make-fifo str)]
               (step-process dir step {:config-json config-json
                                       :in-file in-file
                                       :out-file out-file})
+              (->> (io/resource "srvc/bb/map/add-hashes.clj")
+                   slurp
+                   (spit add-hashes-file))
               (step-process dir
                             add-hashes-step
                             {:config-json add-hashes-config-json
