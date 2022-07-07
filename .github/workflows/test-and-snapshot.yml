@@ -49,7 +49,5 @@ jobs:
           CLOJARS_PASSWORD: ${{secrets.CLOJARS_PASSWORD}}
           CLOJARS_USERNAME: ${{secrets.CLOJARS_USERNAME}}
 
-      - run: |
-          sudo `command -v nix-collect-garbage` -d
-          nix-store --dump-db > ~/nix-db-dump
+      - run: nix-store --dump-db > ~/nix-db-dump
         if: steps.nix-cache.outputs.cache-hit != 'true'
