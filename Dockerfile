@@ -4,6 +4,7 @@ FROM clojure:openjdk-11-tools-deps-1.11.1.1149-bullseye AS BASE
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 RUN apt-get install --no-install-recommends -yy build-essential zlib1g-dev
+RUN mkdir -p /opt/target
 WORKDIR "/opt"
 
 ENV GRAALVM_VERSION="22.1.0"
@@ -32,7 +33,6 @@ RUN clj -M:native-image
 
 
 FROM ubuntu:latest
-RUN apt-get update && apt-get install -y curl \
-        && mkdir -p /usr/local/bin
+RUN mkdir -p /usr/local/bin
 COPY --from=BASE /opt/target/sr /usr/local/bin/sr
 CMD ["sr"]
