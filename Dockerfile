@@ -26,9 +26,14 @@ ENV PATH="$JAVA_HOME:$PATH"
 
 RUN gu install native-image
 
-COPY . .
+COPY script/setup-musl script/setup-musl
 RUN ./script/setup-musl
+
+COPY deps.edn .
 RUN clj -X:deps prep
+
+COPY resources/ resources/
+COPY src/ src/
 RUN clj -M:native-image
 
 
