@@ -40,4 +40,5 @@ RUN clj -M:native-image
 FROM ubuntu:latest
 RUN mkdir -p /usr/local/bin
 COPY --from=BASE /opt/target/sr /usr/local/bin/sr
-CMD ["sr"]
+ENTRYPOINT ["sr"]
+CMD []
