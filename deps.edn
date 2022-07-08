@@ -13,6 +13,7 @@
   :native-image
   {:main-opts
    ["-m" "clj.native-image" "srvc.bb.cli"
+    "--static" "--libc=musl"
     "-H:EnableURLProtocols=http,https"
     "-H:Name=target/sr"
     "-H:+ReportExceptionStackTraces"
