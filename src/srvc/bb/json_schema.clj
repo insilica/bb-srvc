@@ -1,6 +1,6 @@
 (ns srvc.bb.json-schema
-  (:require [clojure.java.io :as io]
-            [insilica.canonical-json :as json]
+  (:require [clojure.data.json :as json]
+            [clojure.java.io :as io]
             [insilica.jinx :as jinx]
             [insilica.jinx.resolve :as resolve]))
 
