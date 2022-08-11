@@ -31,9 +31,17 @@
 (defn get-output-writer []
   (io/writer (socket (System/getenv "SR_OUTPUT"))))
 
+(defn label-event [label]
+  {:data (dissoc label :hash)
+   :type "label"})
+
+(defn label-events [config]
+  (->> config :labels vals
+       (clojure.core/map label-event)))
+
 (defn generate [events]
   (with-open [writer (get-output-writer)]
-    (doseq [event events]
+    (doseq [event (concat (label-events (get-config)) events)]
       (let [{:keys [errors valid?]} (-> (assoc event :hash "")
                                         json/write-str json/read-str
                                         bjs/validate)]
