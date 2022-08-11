@@ -3,7 +3,7 @@
   (:require [org.corfield.build :as bb]))
 
 (def lib 'co.insilica/bb-srvc)
-(def version "0.8.0")
+(def version "0.9.0")
 (defn get-version [opts]
   (str version (when (:snapshot opts) "-SNAPSHOT")))
 
