@@ -1,4 +1,4 @@
-name: Test & Snapshot
+name: Test
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  test-and-snapshot:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -42,12 +42,6 @@ jobs:
 
       - name: Run tests and build jar
         run: nix-shell --run "clojure -T:build ci :snapshot true"
-        
-      - name: Deploy snapshot
-        run: nix-shell --run "clojure -T:build deploy :snapshot true"
-        env:
-          CLOJARS_PASSWORD: ${{secrets.CLOJARS_PASSWORD}}
-          CLOJARS_USERNAME: ${{secrets.CLOJARS_USERNAME}}
 
       - run: nix-store --dump-db > ~/nix-db-dump
         if: steps.nix-cache.outputs.cache-hit != 'true'
