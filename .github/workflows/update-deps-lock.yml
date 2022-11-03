@@ -14,13 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: cachix/install-nix-action@v17
+      - uses: cachix/install-nix-action@v18
 
       - name: Update deps-lock
         run: "nix run github:jlesquembre/clj-nix#deps-lock"
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4.0.3
+        uses: peter-evans/create-pull-request@v4.2.0
         with:
           commit-message: Update deps-lock.json
           title: Update deps-lock.json

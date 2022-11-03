@@ -20,7 +20,7 @@ jobs:
             ~/.gitlibs
             ~/.m2/repository
       - name: Install Nix
-        uses: cachix/install-nix-action@v17
+        uses: cachix/install-nix-action@v18
 
       - name: Cache Nix store
         id: nix-cache
@@ -40,7 +40,7 @@ jobs:
 
       - name: Run tests and build jar
         run: nix-shell --run "clojure -T:build ci :snapshot false"
-        
+
       - name: Deploy release jar
         run: nix-shell --run "clojure -T:build deploy :snapshot false"
         env:

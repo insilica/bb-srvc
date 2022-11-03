@@ -2,9 +2,9 @@
  :deps {org.clojure/clojure {:mvn/version "1.11.1"}
         org.clojure/data.json {:mvn/version "2.4.0"}
         babashka/babashka.curl {:mvn/version "0.1.2"}
-        babashka/fs {:mvn/version "0.1.6"}
-        babashka/process {:mvn/version "0.1.4"}
-        clj-commons/clj-yaml {:mvn/version "0.7.108"}
+        babashka/fs {:mvn/version "0.1.11"}
+        babashka/process {:mvn/version "0.3.11"}
+        clj-commons/clj-yaml {:mvn/version "1.0.26"}
         co.insilica/jinx {:mvn/version "0.2.0"}}
  :aliases
  {:antq {:deps {com.github.liquidz/antq {:mvn/version "2.1.939"}
@@ -13,7 +13,7 @@
   :build {:deps {co.insilica/build-clj {:mvn/version "0.8.3"}}
           :ns-default build}
   :test {:extra-paths ["test"]
-         :extra-deps {lambdaisland/kaocha {:mvn/version "1.68.1059"}
+         :extra-deps {lambdaisland/kaocha {:mvn/version "1.71.1119"}
                       lambdaisland/kaocha-cloverage {:mvn/version "1.0.75"}
                       lambdaisland/kaocha-junit-xml {:git/url "https://github.com/insilica/kaocha-junit-xml.git"
                                                      :sha "21421366100ab4aa7e7c6f297fa72ea3d6549428"}}
