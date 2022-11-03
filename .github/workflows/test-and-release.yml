@@ -26,7 +26,7 @@ jobs:
         id: nix-cache
         uses: john-shaffer/cache@sudo-tar
         with:
-          key: nix-bb-srvc-${{ hashFiles('**.nix') }}
+          key: nix-bb-srvc-${{ hashFiles('**.nix', 'nix/**') }}
           restore-keys: |
             nix-bb-srvc-
           path: |
