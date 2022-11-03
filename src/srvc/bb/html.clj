@@ -29,7 +29,7 @@
 (defn submit-answers [{:keys [body]} {:keys [current-doc-events next-doc-events! writer]}]
   (doseq [event @current-doc-events]
     (sb/write-event writer event))
-  (doseq [answer (-> body io/reader json/read)]
+  (doseq [answer (some-> body io/reader json/read (get "answers"))]
     (let [{:keys [errors valid?]} (-> (assoc answer :hash "")
                                       json/write-str json/read-str
                                       bjs/validate)]
