@@ -1,0 +1,4 @@
+clojure -M:antq \
+  --exclude=org.clojure/clojure \
+  --exclude=john-shaffer/cache \
+  "$@"

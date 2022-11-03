@@ -7,12 +7,15 @@
         clj-commons/clj-yaml {:mvn/version "0.7.108"}
         co.insilica/jinx {:mvn/version "0.2.0"}}
  :aliases
- {:build {:deps {co.insilica/build-clj {:mvn/version "0.8.3"}}
+ {:antq {:deps {com.github.liquidz/antq {:mvn/version "2.1.939"}
+                org.slf4j/slf4j-nop {:mvn/version "2.0.3"}}
+         :main-opts ["-m" "antq.core"]}
+  :build {:deps {co.insilica/build-clj {:mvn/version "0.8.3"}}
           :ns-default build}
   :test {:extra-paths ["test"]
          :extra-deps {lambdaisland/kaocha {:mvn/version "1.68.1059"}
                       lambdaisland/kaocha-cloverage {:mvn/version "1.0.75"}
                       lambdaisland/kaocha-junit-xml {:git/url "https://github.com/insilica/kaocha-junit-xml.git"
-                                                     :sha "21421366100ab4aa7e7c6f297fa72ea3d6549428"}
-}
+                                                     :sha "21421366100ab4aa7e7c6f297fa72ea3d6549428"}}
+
          :jvm-opts ["-XX:-OmitStackTraceInFastThrow"]}}}
